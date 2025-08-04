@@ -74,6 +74,6 @@ jobs:
           echo "Pinging hostname..."
           ping -n 1 $(hostname)
           echo "Pinging FQDN..."
-          ping -n 1 $(hostname -f)
+          ping -n 1 $(hostname --fqdn)
         shell: bash
         if: runner.os == 'Windows' && always()
