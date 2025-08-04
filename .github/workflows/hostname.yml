@@ -28,7 +28,6 @@ jobs:
 
       - name: Run hostname check script
         run: |
-          set -x
           echo "Hostname: $(hostname)"
           echo "Fully Qualified Domain Name: $(hostname -f)"
           echo "Pinging localhost..."
@@ -36,7 +35,7 @@ jobs:
           echo "Pinging hostname..."
           ping -c 1 $(hostname)
           echo "Pinging FQDN..."
-          ping -c 1 $(hostname -f)
+          ping -c 1 $(hostname --fqdn)
         if: runner.os == 'macOS' && always()
 
       - name: Run hostname check script
