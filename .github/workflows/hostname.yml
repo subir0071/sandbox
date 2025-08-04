@@ -54,13 +54,14 @@ jobs:
       - name: Run hostname check script
         run: |
           echo "Hostname: $env:COMPUTERNAME"
-          echo "Fully Qualified Domain Name: $([System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).HostName)"
+          echo "Fully Qualified Domain Name: $([System.Net.Dns]::GetHostEntry(($env:COMPUTERNAME))).HostName"
           echo "Pinging localhost..."
           ping -n 1 localhost
           echo "Pinging hostname..."
           ping -n 1 $env:COMPUTERNAME
           echo "Pinging FQDN..."
-          ping -n 1 [System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).HostName
+          $fqdn = [System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).HostName
+          ping -n 1 $fqdn
         shell: pwsh
         if: runner.os == 'Windows' && always()
 
